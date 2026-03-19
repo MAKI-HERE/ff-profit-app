@@ -84,6 +84,16 @@ const pillButton = {
 }
 
 export default function App() {
+
+  React.useEffect(() => {
+    const loadData = async () => {
+      const querySnapshot = await getDocs(collection(db, "sales"))
+      const data = querySnapshot.docs.map(doc => doc.data())
+      setHistory(data.reverse())
+    }
+
+    loadData()
+  }, [])
   const [voucherPrice, setVoucherPrice] = React.useState(2225)
   const [pointsPerVoucher, setPointsPerVoucher] = React.useState(2000)
   const [voucherCount, setVoucherCount] = React.useState(2)
